@@ -1,0 +1,30 @@
+# This release graduated the Ruby "compile" setting
+# out of experimental status.
+min_version = "2026.2.8"
+
+[tools]
+ruby      = "3.2"
+java      = 'temurin-21'
+# NOTE: Can't use 2.13 as the tag has a broken `bin/lein` script.
+leiningen = '2.12'
+maven     = 'latest'
+grype     = 'latest'
+syft      = 'latest'
+
+# Use pre-compiled ruby binaries, instead of building from source.
+[settings.ruby]
+compile = false
+
+# Auto-add the local Bundler binstubs.
+[env]
+_.path = ["./bin"]
+BUNDLE_PATH = "./vendor"
+
+# === Ruby Operations ===
+[tasks.bundle-install]
+run     = ["bundle install", "bundle binstubs rake"]
+sources = ["Gemfile", "Gemfile.local"]
+
+[tasks.rake]
+run     = ["rake"]
+depends = ["bundle-install"]
