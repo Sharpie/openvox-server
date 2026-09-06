@@ -10,11 +10,11 @@ java_major_version=$(echo $java_version | awk -F. '{ print $1 }')
 if [[ $java_major_version -ge 21 ]]; then
 
 	if ! grep -Eq 'add-opens|enable-native-access' <<<"$JAVA_ARGS"; then
-		export JAVA_ARGS="--add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --enable-native-access=ALL-UNNAMED ${JAVA_ARGS}"
+		export JAVA_ARGS="<%= EZBake::Config[:java_args_dist] %> ${JAVA_ARGS}"
 	fi
 
 	if ! grep -Eq 'add-opens|enable-native-access' <<<"$JAVA_ARGS_CLI"; then
-		export JAVA_ARGS_CLI="--add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --enable-native-access=ALL-UNNAMED ${JAVA_ARGS_CLI}"
+		export JAVA_ARGS_CLI="<%= EZBake::Config[:java_args_dist] %> ${JAVA_ARGS_CLI}"
 	fi
 fi
 

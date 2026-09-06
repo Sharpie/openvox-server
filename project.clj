@@ -163,6 +163,9 @@
                        :puppet-platform-version 9
                        :java-args ~(str "-Xms2g -Xmx2g "
                                      "-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger")
+                       :java-args-dist ~(str "--add-opens java.base/sun.nio.ch=ALL-UNNAMED "
+                                             "--add-opens java.base/java.io=ALL-UNNAMED "
+                                             "--enable-native-access=ALL-UNNAMED")
                        :create-dirs ["/opt/puppetlabs/server/data/puppetserver/jars"
                                      "/opt/puppetlabs/server/data/puppetserver/yaml"]
                        :repo-target "openvox9"
@@ -256,7 +259,7 @@
                                                [org.openvoxproject/puppetserver "9.1.0-SNAPSHOT"]
                                                [org.openvoxproject/trapperkeeper-webserver]
                                                [org.openvoxproject/trapperkeeper-metrics]]
-                      :plugins [[org.openvoxproject/lein-ezbake ~(or (System/getenv "EZBAKE_VERSION") "2.9.1")]]
+                      :plugins [[org.openvoxproject/lein-ezbake ~(or (System/getenv "EZBAKE_VERSION") "4.1.0")]]
                       :name "puppetserver"}
 
              :ezbake-fips {:dependencies ^:replace [[org.clojure/clojure]
@@ -270,7 +273,7 @@
                                                     [org.openvoxproject/trapperkeeper-webserver]
                                                     [org.openvoxproject/trapperkeeper-metrics]]
                             :uberjar-exclusions [#"^org/bouncycastle/.*"]
-                            :plugins [[org.openvoxproject/lein-ezbake ~(or (System/getenv "EZBAKE_VERSION") "2.9.1")]]
+                            :plugins [[org.openvoxproject/lein-ezbake ~(or (System/getenv "EZBAKE_VERSION") "4.1.0")]]
                       :name "puppetserver"}
              :uberjar {:dependencies [[org.openvoxproject/trapperkeeper-webserver]]
                        :aot [puppetlabs.trapperkeeper.main
